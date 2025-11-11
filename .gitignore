@@ -1,0 +1,13 @@
+# Node
+frontend/node_modules
+frontend/.env
+
+# IDE
+.vscode
+*.log
+
+# Backend
+backend/target
+
+# Docker
+app.tar.gz
