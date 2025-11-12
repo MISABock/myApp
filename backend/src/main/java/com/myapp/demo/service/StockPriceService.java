@@ -39,4 +39,16 @@ public class StockPriceService {
 
         return quote;
     }
+
+    public JsonNode getHistory(String symbol) throws Exception {
+
+        String url = "https://query1.finance.yahoo.com/v8/finance/chart/" 
+                + symbol 
+                + "?range=1mo&interval=1d";
+
+        String response = rest.getForObject(url, String.class);
+        return mapper.readTree(response);
+    }
+
+
 }

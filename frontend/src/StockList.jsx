@@ -70,7 +70,7 @@ export default function StockList() {
                 }}
             >
                 <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-                    Verfügbare Aktien für Benutzer {id}
+                    Verfügbare Aktien
                 </h1>
 
                 <div

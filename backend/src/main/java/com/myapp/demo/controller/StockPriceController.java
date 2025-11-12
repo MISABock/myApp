@@ -1,6 +1,7 @@
 package com.myapp.demo.controller;
 
 import com.myapp.demo.service.StockPriceService;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.myapp.demo.dto.StockQuote;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,4 +19,10 @@ public class StockPriceController {
     public StockQuote getFullPrice(@PathVariable String symbol) throws Exception {
         return service.getQuote(symbol);
     }
+
+    @GetMapping("/history/{symbol}")
+    public JsonNode getHistory(@PathVariable String symbol) throws Exception {
+        return service.getHistory(symbol);
+    }
+
 }

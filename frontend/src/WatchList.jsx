@@ -8,20 +8,20 @@ export default function WatchList() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Nur Preis laden
     const loadPrice = useCallback(async (symbol) => {
         try {
             const res = await fetch(`http://localhost:8080/api/price/${symbol}`, {
                 credentials: "include"
             });
-
             return await res.json();
-
         } catch (err) {
             console.error("Preis konnte nicht geladen werden:", symbol);
             return null;
         }
     }, []);
 
+    // Watchlist laden
     const loadWatchlist = useCallback(async () => {
         try {
             const res = await fetch(`http://localhost:8080/api/watchlist/${id}`, {
@@ -30,10 +30,10 @@ export default function WatchList() {
 
             const list = JSON.parse(await res.text());
 
+            // Nur Quote hinzufügen, KEINE History
             const listWithPrices = await Promise.all(
                 list.map(async (item) => {
                     if (!item.stock) return { ...item, quote: null };
-
                     const quote = await loadPrice(item.stock.symbol);
                     return { ...item, quote };
                 })
@@ -47,12 +47,12 @@ export default function WatchList() {
         }
     }, [id, loadPrice]);
 
+    // Löschen eines Eintrags
     const deleteItem = useCallback(async (entryId) => {
         await fetch(`http://localhost:8080/api/watchlist/${entryId}`, {
             method: "DELETE",
             credentials: "include"
         });
-
         loadWatchlist();
     }, [loadWatchlist]);
 
@@ -87,7 +87,7 @@ export default function WatchList() {
                     </div>
                 )}
 
-                {/* GRID statt Liste */}
+                {/* Grid Darstellung */}
                 <div
                     style={{
                         display: "grid",
@@ -150,33 +150,6 @@ export default function WatchList() {
                                     {item.quote
                                         ? `${item.quote.change} USD (${item.quote.percentChange}%)`
                                         : ""}
-                                </div>
-
-                                <div style={{ marginTop: "10px" }}>
-                                    <svg width="120" height="40">
-                                        {item.historyPrices &&
-                                            item.historyPrices.length > 1 &&
-                                            item.historyPrices.map((p, i) => {
-                                                const x = i * (120 / (item.historyPrices.length - 1));
-                                                const y = 40 - p;
-                                                const next = item.historyPrices[i + 1];
-                                                if (!next) return null;
-                                                const x2 = (i + 1) * (120 / (item.historyPrices.length - 1));
-                                                const y2 = 40 - next;
-
-                                                return (
-                                                    <line
-                                                        key={i}
-                                                        x1={x}
-                                                        y1={y}
-                                                        x2={x2}
-                                                        y2={y2}
-                                                        stroke="#3e7aff"
-                                                        strokeWidth="2"
-                                                    />
-                                                );
-                                            })}
-                                    </svg>
                                 </div>
                             </div>
 
