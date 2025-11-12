@@ -11,7 +11,7 @@ export default function MyData() {
     useEffect(() => {
         async function loadUser() {
             try {
-                const res = await fetch(`http://localhost:8080/api/user/${id}`, {
+                const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${id}`, {
                     credentials: "include"
                 });
 

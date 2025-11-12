@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function LogoutSuccessPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.href = "http://localhost:8080/login";
+      window.location.href = `${process.env.REACT_APP_BACKEND_URL}/login`;
     }, 4000);
     return () => clearTimeout(timer);
   }, []);
@@ -26,8 +26,8 @@ export default function LogoutSuccessPage() {
       <p>Du wurdest erfolgreich ausgeloggt.</p>
 
       <a
-        href="http://localhost:8080/login"
-        style={{
+          href={`${process.env.REACT_APP_BACKEND_URL}/login`}
+          style={{
           marginTop: "20px",
           padding: "10px 20px",
           backgroundColor: "#70a8ff",

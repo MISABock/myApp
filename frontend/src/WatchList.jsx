@@ -11,7 +11,7 @@ export default function WatchList() {
     // Nur Preis laden
     const loadPrice = useCallback(async (symbol) => {
         try {
-            const res = await fetch(`http://localhost:8080/api/price/${symbol}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/price/${symbol}`, {
                 credentials: "include"
             });
             return await res.json();
@@ -24,7 +24,7 @@ export default function WatchList() {
     // Watchlist laden
     const loadWatchlist = useCallback(async () => {
         try {
-            const res = await fetch(`http://localhost:8080/api/watchlist/${id}`, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/watchlist/${id}`, {
                 credentials: "include"
             });
 
@@ -49,7 +49,7 @@ export default function WatchList() {
 
     // Löschen eines Eintrags
     const deleteItem = useCallback(async (entryId) => {
-        await fetch(`http://localhost:8080/api/watchlist/${entryId}`, {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/watchlist/${entryId}`, {
             method: "DELETE",
             credentials: "include"
         });

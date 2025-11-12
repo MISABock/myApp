@@ -10,7 +10,7 @@ export default function StockList() {
     const navigate = useNavigate();
 
     async function loadAll() {
-        const res = await fetch("http://localhost:8080/api/stocks", {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/stocks`, {
             credentials: "include"
         });
 
@@ -23,7 +23,7 @@ export default function StockList() {
     }
 
     async function search() {
-        const res = await fetch(`http://localhost:8080/api/stocks/search?q=${query}`, {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/stocks/search?q=${query}`, {
             credentials: "include"
         });
 
@@ -36,7 +36,7 @@ export default function StockList() {
     }
 
     async function addToWatchlist(stock) {
-        await fetch("http://localhost:8080/api/watchlist/add", {
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/watchlist/add`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
