@@ -30,6 +30,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         Long id = user.getId();
 
-        response.sendRedirect("http://localhost:3000/home/" + id);
+        response.sendRedirect("https://myapp-nc63.onrender.com/home/" + id);
     }
 }
+
