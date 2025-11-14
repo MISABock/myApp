@@ -2,6 +2,7 @@ package com.myapp.demo.service;
 
 import com.myapp.demo.model.Stock;
 import com.myapp.demo.repository.StockRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ public class StockImportService {
         this.stockRepository = stockRepository;
     }
 
+    @PostConstruct
     public void init() {
         try {
             importStocks();
